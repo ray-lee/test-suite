@@ -23,7 +23,7 @@ public class UCJepsSiteTest {
 	public static final String USERNAME = "admin@ucjeps.cspace.berkeley.edu";
 	public static final String PASSWORD = "Administrator";
 	public static final String TENANT_BASE_URL = "http://" + HOST + ":8180/collectionspace/ui/" + TENANT + "/html/";
-	public static final long TIMEOUT = 2;
+	public static final long TIMEOUT = 3;
 	
 	WebDriver driver = new FirefoxDriver();
 	
@@ -74,6 +74,7 @@ public class UCJepsSiteTest {
 	 * Tests the create new page.
 	 * <ul>
 	 * <li>The acquisition and object exit procedures should be removed</li>
+	 * <li>TODO: Additional cataloging templates should be removed</li>
 	 * </ul>
 	 */
 	@Test(dependsOnMethods = { "testLogin" })
@@ -111,6 +112,7 @@ public class UCJepsSiteTest {
 	 * </li>
 	 * <li>The name of the Object Collection Information section should be changed to Field Collection Information</li>
 	 * <li>Field collection date should be a structured date</li>
+	 * <li>TODO: Autocomplete search should return 60 records</li>
 	 * </ul>
 	 */
 	@Test(dependsOnMethods = { "testLogin" })
@@ -147,6 +149,8 @@ public class UCJepsSiteTest {
 	 * <li>The record should save without error</li>
 	 * <li>The Determination History/Name field (from the naturalhistory domain extension) should be saved</li>
 	 * <li>The Handwritten label field (from the ucjeps local extension) should be saved</li>
+	 * <li>TODO: The title should contain the primary Determination History/Name</li>
+	 * <li>The Sheet field (from the ucjeps local extension) should be saved</li>
 	 * </ul>
 	 */
 	@Test(dependsOnMethods = { "testLogin" })
@@ -155,10 +159,12 @@ public class UCJepsSiteTest {
 		
 		String taxonValue = "Ulva compressa";
 		String handwrittenValue = "yes";
+		String sheetValue = "5";
 		
 		driver.findElement(By.className("csc-object-identification-object-number")).sendKeys(getTimestamp());
 		fillAutocomplete("csc-taxonomic-identification-taxon", taxonValue);		
 		driver.findElement(By.className("csc-collection-object-handwritten")).findElement(By.cssSelector("option[value=" + handwrittenValue + "]")).click();
+		driver.findElement(By.className("csc-collection-object-sheetNumber")).sendKeys(sheetValue);
 
 		driver.findElement(By.className("csc-save")).click();
 
@@ -171,8 +177,113 @@ public class UCJepsSiteTest {
 		
 		String savedHandwrittenValue = driver.findElement(By.className("csc-collection-object-handwritten")).getAttribute("value");
 		Assert.assertEquals(savedHandwrittenValue, handwrittenValue, "Handwritten label was not saved correctly");
+		
+		String savedSheetValue = driver.findElement(By.className("csc-collection-object-sheetNumber")).getAttribute("value");
+		Assert.assertEquals(savedSheetValue, sheetValue, "Sheet was not saved correctly");
 	}
 	
+	/**
+	 * Tests saving a media record.
+	 * <ul>
+	 * <li>TODO: The record should save without error</li>
+	 * <li>TODO: The Scientific name field (from the ucjeps local extension) should be saved</li>
+	 * <li>TODO: The Handwritten label field (from the ucjeps local extension) should be saved</li>
+	 * <li>TODO: The title should contain the Scientific name</li>
+	 * </ul>
+	 */
+	@Test(dependsOnMethods = { "testLogin" })
+	public void testSaveMediaRecord() {
+	}
+
+	/**
+	 * TODO: Tests media record sticky fields
+	 * <ul>
+	 * <li>TODO: The Scientific name field should be sticky</li>
+	 * </ul>
+	 */
+	@Test(dependsOnMethods = { "testLogin", "testSaveMediaRecord" })
+	public void testMediaRecordEditorStickyField() {
+	}
+
+	/**
+	 * Tests creating related procedures.
+	 * <ul>
+	 * <li>TODO: A cataloging record can be related to a media record, and appears in the sidebar after a reload</li>
+	 * <li>TODO: A media record can be related to a cataloging record, and appears in the sidebar after a reload</li>
+	 * </ul>
+	 */
+	@Test(dependsOnMethods = { "testLogin" })
+	public void testRelatedProcedures() {
+	}
+
+	/**
+	 * Tests the find/edit page.
+	 * <ul>
+	 * <li>TODO: The default search page size should be 50</li>
+	 * </ul>
+	 */
+	@Test(dependsOnMethods = { "testLogin" })
+	public void testFindEdit() {
+	}
+
+	/**
+	 * Tests the advanced search form for cataloging.
+	 * <ul>
+	 * <li>TODO: The following fields should be added:
+	 *     <ul>
+	 *     <li>TODO: Determination History/Name</li>
+	 *     <li>TODO: Kind of Type</li>
+	 *     <li>TODO: Field collection collector</li>
+	 *     <li>TODO: Field collection location verbatim</li>   
+	 *     <li>TODO: Field location county</li>   
+	 *     <li>TODO: Field location state</li>   
+	 *     <li>TODO: Field location country</li>   
+	 *     </ul>
+	 * </li>
+	 * <li>TODO: The following fields should be removed:
+	 *     <ul>
+	 *     <li>TODO: Object Name</li>
+	 *     <li>TODO: Responsible Department</li>
+	 *     <li>TODO: Title</li>
+	 *     <li>TODO: Copy Number</li>
+	 *     <li>TODO: Edition Number</li>
+	 *     <li>TODO: Material</li>
+	 *     <li>TODO: Object Status</li>
+	 *     <li>TODO: Style</li>
+	 *     <li>TODO: Technical Attribute</li>
+	 *     <li>TODO: Object Component Name</li>
+	 *     <li>TODO: Production organization</li>
+	 *     <li>TODO: Production people</li>
+	 *     <li>TODO: Production person</li>
+	 *     <li>TODO: Production place</li>
+	 *     <li>TODO: Technique</li>
+	 *     <li>TODO: Field collection event name</li>
+	 *     </ul>
+	 * </li>
+	 * </ul>
+	 */
+	@Test(dependsOnMethods = { "testLogin" })
+	public void testCatalogingAdvancedSearch() {
+		
+	}
+
+	/**
+	 * Tests the advanced search form for media handling.
+	 * <ul>
+	 * <li>TODO: The following fields should be added:
+	 *     <ul>
+	 *     <li>TODO: Scientific name</li>
+	 *     <li>TODO: Post to public</li>
+	 *     <li>TODO: Handwritten label</li>
+	 *     </ul>
+	 * </li>
+	 * </ul>
+	 */
+	@Test(dependsOnMethods = { "testLogin" })
+	public void testMediaAdvancedSearch() {
+		
+	}
+
 	private void fillAutocomplete(String className, String value) {
 		getAutocompleteInput(className).sendKeys(value);
 		
