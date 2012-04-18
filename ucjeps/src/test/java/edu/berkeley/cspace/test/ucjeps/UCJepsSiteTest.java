@@ -150,7 +150,8 @@ public class UCJepsSiteTest {
 	 * <li>The Determination History/Name field (from the naturalhistory domain extension) should be saved</li>
 	 * <li>The Handwritten label field (from the ucjeps local extension) should be saved</li>
 	 * <li>TODO: The title should contain the primary Determination History/Name</li>
-	 * <li>The Sheet field (from the ucjeps local extension) should be saved</li>
+	 * <li>The Sheet field (from the naturalhistory domain extension) should be saved</li>
+	 * <li>The Cultivated field (from the naturalhistory domain extension) should be saved</li>
 	 * </ul>
 	 */
 	@Test(dependsOnMethods = { "testLogin" })
@@ -164,7 +165,8 @@ public class UCJepsSiteTest {
 		driver.findElement(By.className("csc-object-identification-object-number")).sendKeys(getTimestamp());
 		fillAutocomplete("csc-taxonomic-identification-taxon", taxonValue);		
 		driver.findElement(By.className("csc-collection-object-handwritten")).findElement(By.cssSelector("option[value=" + handwrittenValue + "]")).click();
-		driver.findElement(By.className("csc-collection-object-sheetNumber")).sendKeys(sheetValue);
+		driver.findElement(By.className("csc-collection-object-objectCountNumber")).sendKeys(sheetValue);
+		driver.findElement(By.className("csc-collection-object-cultivated")).click();
 
 		driver.findElement(By.className("csc-save")).click();
 
@@ -178,8 +180,11 @@ public class UCJepsSiteTest {
 		String savedHandwrittenValue = driver.findElement(By.className("csc-collection-object-handwritten")).getAttribute("value");
 		Assert.assertEquals(savedHandwrittenValue, handwrittenValue, "Handwritten label was not saved correctly");
 		
-		String savedSheetValue = driver.findElement(By.className("csc-collection-object-sheetNumber")).getAttribute("value");
+		String savedSheetValue = driver.findElement(By.className("csc-collection-object-objectCountNumber")).getAttribute("value");
 		Assert.assertEquals(savedSheetValue, sheetValue, "Sheet was not saved correctly");
+		
+		String cultivatedChecked = driver.findElement(By.className("csc-collection-object-cultivated")).getAttribute("checked");
+		Assert.assertNotNull(cultivatedChecked, "Cultivated was not saved correctly");
 	}
 	
 	/**
