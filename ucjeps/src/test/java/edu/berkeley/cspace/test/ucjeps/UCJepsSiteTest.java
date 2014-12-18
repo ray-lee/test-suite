@@ -112,7 +112,9 @@ public class UCJepsSiteTest {
 	 * </li>
 	 * <li>The name of the Object Collection Information section should be changed to Field Collection Information</li>
 	 * <li>Field collection date should be a structured date</li>
+	 * <li>TODO: Determination History/Date should be a structured date</li>
 	 * <li>TODO: Autocomplete search should return 60 records</li>
+	 * <li>TODO: The Field Collection Source field should be removed</li>
 	 * </ul>
 	 */
 	@Test(dependsOnMethods = { "testLogin" })
@@ -152,6 +154,7 @@ public class UCJepsSiteTest {
 	 * <li>TODO: The title should contain the primary Determination History/Name</li>
 	 * <li>The Sheet field (from the naturalhistory domain extension) should be saved</li>
 	 * <li>The Cultivated field (from the naturalhistory domain extension) should be saved</li>
+	 * <li>TODO: The Determination History/Date field (from the naturalhistory domain extension) should be saved</li>
 	 * </ul>
 	 */
 	@Test(dependsOnMethods = { "testLogin" })
